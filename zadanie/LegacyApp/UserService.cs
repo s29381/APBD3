@@ -5,12 +5,12 @@ namespace LegacyApp
 {
     public interface ICreditLimitService
     {
-        int GetCreditLimit(string lastName, DateTime birthdate);
+        public int GetCreditLimit(string lastName, DateTime birthdate);
     }
     
     public interface IClientRepository
     {
-        Client GetById(int idClient);
+        public Client GetById(int idClient);
     }
     
     public class UserService
@@ -28,8 +28,8 @@ namespace LegacyApp
         [Obsolete]
         public UserService()
         {
-            _clientRepository = (IClientRepository)new ClientRepository();
-            _creditService = (ICreditLimitService)new UserCreditService();
+            _clientRepository = new ClientRepository();
+            _creditService = new UserCreditService();
         }
         public bool AddUser(string firstName, string lastName, string email, DateTime dateOfBirth, int clientId)
         {
@@ -85,10 +85,10 @@ namespace LegacyApp
         private DateTime DateOfBirth;
         public Validate(string firstName, string lastName, string email, DateTime dateOfBirth)
         {
-            FirstName = firstName;
-            LastName = lastName;
-            Email = lastName;
-            DateOfBirth = dateOfBirth;
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.Email = email;
+            this.DateOfBirth = dateOfBirth;
         }
 
         public bool EmptyName()
@@ -103,7 +103,7 @@ namespace LegacyApp
         
         public bool IncorrectEmail()
         {
-            if (!Email.Contains("@") && !Email.Contains("."))
+            if (!Email.Contains('@') && !Email.Contains('.'))
             {
                 return true;
             }
